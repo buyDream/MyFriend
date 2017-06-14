@@ -14,7 +14,7 @@
 #import "RecordButton.h"
 #import "TRRTuringRequestManager.h"
 
-@interface RGMainViewController ()<TRRVoiceRecognitionManagerDelegate, UITextViewDelegate>
+@interface RGMainViewController ()<TRRVoiceRecognitionManagerDelegate, UITextViewDelegate, RecordButtonDelegate>
 @property (nonatomic, strong) TRRSpeechSythesizer *sythesizer;
 @property (nonatomic, strong) TRRTuringAPIConfig  *apiConfig;
 
@@ -34,7 +34,9 @@
     [super viewDidLoad];
     [self p_configureView];
     [self p_initalizationTuring];
-   
+    self.voiceButton.delegate = self;
+    self.voiceButton.recordHUDSuperView = self.view;
+
 }
 
 
@@ -105,11 +107,9 @@
     return YES;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+- (void)didTAudioView:(NSString *)audioPath duration:(NSTimeInterval)duration {
 
+}
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (![_inputTextView isExclusiveTouch]) {
         [_inputTextView resignFirstResponder];

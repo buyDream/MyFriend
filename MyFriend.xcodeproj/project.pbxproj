@@ -50,6 +50,11 @@
 		5E9B61791EED33BD0081088C /* icon_Record_default8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9B61681EED33BD0081088C /* icon_Record_default8@2x.png */; };
 		5E9B617A1EED33BD0081088C /* icon_Record_default9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9B61691EED33BD0081088C /* icon_Record_default9@2x.png */; };
 		5E9B617B1EED33BD0081088C /* icon_Record_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9B616A1EED33BD0081088C /* icon_Record_default@2x.png */; };
+		5EF8BD741EF160B8007E36A4 /* TPlayAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8BD711EF160B8007E36A4 /* TPlayAudio.m */; };
+		5EF8BD751EF160B8007E36A4 /* TRecordAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8BD731EF160B8007E36A4 /* TRecordAudio.m */; };
+		5EF8BD811EF16181007E36A4 /* amrFileCodec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8BD781EF16181007E36A4 /* amrFileCodec.mm */; };
+		5EF8BD821EF16181007E36A4 /* VoiceConverter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8BD7E1EF16181007E36A4 /* VoiceConverter.mm */; };
+		5EF8BD831EF16181007E36A4 /* wav.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5EF8BD801EF16181007E36A4 /* wav.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +122,20 @@
 		5E9B61681EED33BD0081088C /* icon_Record_default8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_Record_default8@2x.png"; sourceTree = "<group>"; };
 		5E9B61691EED33BD0081088C /* icon_Record_default9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_Record_default9@2x.png"; sourceTree = "<group>"; };
 		5E9B616A1EED33BD0081088C /* icon_Record_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_Record_default@2x.png"; sourceTree = "<group>"; };
+		5EF8BD701EF160B8007E36A4 /* TPlayAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPlayAudio.h; sourceTree = "<group>"; };
+		5EF8BD711EF160B8007E36A4 /* TPlayAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPlayAudio.m; sourceTree = "<group>"; };
+		5EF8BD721EF160B8007E36A4 /* TRecordAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TRecordAudio.h; sourceTree = "<group>"; };
+		5EF8BD731EF160B8007E36A4 /* TRecordAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TRecordAudio.m; sourceTree = "<group>"; };
+		5EF8BD771EF16181007E36A4 /* amrFileCodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = amrFileCodec.h; sourceTree = "<group>"; };
+		5EF8BD781EF16181007E36A4 /* amrFileCodec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = amrFileCodec.mm; sourceTree = "<group>"; };
+		5EF8BD791EF16181007E36A4 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
+		5EF8BD7A1EF16181007E36A4 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
+		5EF8BD7B1EF16181007E36A4 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
+		5EF8BD7C1EF16181007E36A4 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
+		5EF8BD7D1EF16181007E36A4 /* VoiceConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceConverter.h; sourceTree = "<group>"; };
+		5EF8BD7E1EF16181007E36A4 /* VoiceConverter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VoiceConverter.mm; sourceTree = "<group>"; };
+		5EF8BD7F1EF16181007E36A4 /* wav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wav.h; sourceTree = "<group>"; };
+		5EF8BD801EF16181007E36A4 /* wav.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = wav.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,6 +304,8 @@
 				5E9B61531EED311C0081088C /* XHVoiceRecordHUD.h */,
 				5E9B61541EED311C0081088C /* XHVoiceRecordHUD.m */,
 				5E9B61551EED311C0081088C /* XHVoiceRecordHUD.xib */,
+				5EF8BD761EF16181007E36A4 /* VoiceConvert */,
+				5EF8BD6F1EF160B8007E36A4 /* Audio */,
 				5E9B61591EED33BD0081088C /* VoiceHudImages */,
 			);
 			path = RecordButton;
@@ -312,6 +333,34 @@
 				5E9B616A1EED33BD0081088C /* icon_Record_default@2x.png */,
 			);
 			path = VoiceHudImages;
+			sourceTree = "<group>";
+		};
+		5EF8BD6F1EF160B8007E36A4 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				5EF8BD701EF160B8007E36A4 /* TPlayAudio.h */,
+				5EF8BD711EF160B8007E36A4 /* TPlayAudio.m */,
+				5EF8BD721EF160B8007E36A4 /* TRecordAudio.h */,
+				5EF8BD731EF160B8007E36A4 /* TRecordAudio.m */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		5EF8BD761EF16181007E36A4 /* VoiceConvert */ = {
+			isa = PBXGroup;
+			children = (
+				5EF8BD771EF16181007E36A4 /* amrFileCodec.h */,
+				5EF8BD781EF16181007E36A4 /* amrFileCodec.mm */,
+				5EF8BD791EF16181007E36A4 /* dec_if.h */,
+				5EF8BD7A1EF16181007E36A4 /* if_rom.h */,
+				5EF8BD7B1EF16181007E36A4 /* interf_dec.h */,
+				5EF8BD7C1EF16181007E36A4 /* interf_enc.h */,
+				5EF8BD7D1EF16181007E36A4 /* VoiceConverter.h */,
+				5EF8BD7E1EF16181007E36A4 /* VoiceConverter.mm */,
+				5EF8BD7F1EF16181007E36A4 /* wav.h */,
+				5EF8BD801EF16181007E36A4 /* wav.mm */,
+			);
+			path = VoiceConvert;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -406,14 +455,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EF8BD821EF16181007E36A4 /* VoiceConverter.mm in Sources */,
 				5E9B61561EED311C0081088C /* RecordButton.m in Sources */,
 				5E1B7B251EECFAE200AF3BFE /* AppDelegate.m in Sources */,
 				5E1B7B3D1EECFBFB00AF3BFE /* RGMainViewController.m in Sources */,
+				5EF8BD741EF160B8007E36A4 /* TPlayAudio.m in Sources */,
 				5E1B7B971EECFD2400AF3BFE /* OpenUDID.m in Sources */,
 				5E1B7B931EECFD2400AF3BFE /* CADebugMacros.cpp in Sources */,
 				5E1B7B221EECFAE200AF3BFE /* main.m in Sources */,
+				5EF8BD811EF16181007E36A4 /* amrFileCodec.mm in Sources */,
 				5E1B7B951EECFD2400AF3BFE /* CAXException.cpp in Sources */,
 				5E1B7B961EECFD2400AF3BFE /* JSONKit.m in Sources */,
+				5EF8BD751EF160B8007E36A4 /* TRecordAudio.m in Sources */,
+				5EF8BD831EF16181007E36A4 /* wav.mm in Sources */,
 				5E1B7B941EECFD2400AF3BFE /* CAStreamBasicDescription.cpp in Sources */,
 				5E1B7B981EECFD2400AF3BFE /* TTTAttributedLabel.m in Sources */,
 				5E9B61571EED311C0081088C /* XHVoiceRecordHUD.m in Sources */,
@@ -535,6 +589,7 @@
 		5E1B7B351EECFAE200AF3BFE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8E2TG7647F;
 				ENABLE_BITCODE = NO;
@@ -545,15 +600,21 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyFriend",
 				);
-				OTHER_LDFLAGS = "-all_load";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = refrainGo.MyFriend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
 		5E1B7B361EECFAE200AF3BFE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8E2TG7647F;
 				ENABLE_BITCODE = NO;
@@ -564,9 +625,14 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MyFriend",
 				);
-				OTHER_LDFLAGS = "-all_load";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = refrainGo.MyFriend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};

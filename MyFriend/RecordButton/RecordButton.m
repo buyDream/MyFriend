@@ -9,20 +9,19 @@
 
 #import "XHVoiceRecordHUD.h"
 #import "RecordButton.h"
-//#import "TRecordAudio.h"
-//#import "TPlayAudio.h"
+#import "TRecordAudio.h"
+#import "TPlayAudio.h"
 
 #define kXHTouchDownToRecord @"按住 说话"
 #define kXHTouchUpToFinish @"松开 结束"
 
-@interface RecordButton ()
-/* <TRecordAudioDelegate> {
+@interface RecordButton () <TRecordAudioDelegate> {
     BOOL isSubmit;
     CGFloat _duration;
     BOOL isShow;
-} */
+}
 @property(nonatomic, strong) NSString *recordPath;
-//@property(nonatomic, retain) TRecordAudio *voice;
+@property(nonatomic, retain) TRecordAudio *voice;
 @property (nonatomic, strong) XHVoiceRecordHUD  *recordHUDView;
 @property (nonatomic, assign) BOOL  isValid;
 @property(nonatomic, assign) NSTimeInterval updateTime; // 控制列表刷新频率
@@ -70,7 +69,7 @@
 
 //按下按钮开始录音
 - (void)holdDownButtonTouchDown {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"showACoverNaviButton" object:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"showACoverNaviButton" object:nil];
     if ([[NSDate date] timeIntervalSince1970] - self.updateTime < 1) {
         self.isValid = NO;
         return;
@@ -79,46 +78,46 @@
     self.isValid = YES;
     self.clickCount++;
     int count = self.clickCount;
-//    AVAudioSession *avSession = [AVAudioSession sharedInstance];
-//    if ([avSession respondsToSelector:@selector(requestRecordPermission:)]) {
-//        [avSession requestRecordPermission:^(BOOL available) {
-//            if (count != self.clickCount) {
-//                return ;
-//            }
-//            if (available) {
-//                [[TPlayAudio sharedManager] stop];
-//                _duration = 0;
-//                if (self.recordHUDView != nil) {
-//                    [self.recordHUDView removeFromSuperview];
-//                    self.recordHUDView = nil;
-//                }
-//                
-//                if (isShow == NO) {
-//                    self.recordHUDView = [[UINib nibWithNibName:@"XHVoiceRecordHUD" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil].lastObject;
-//                    isShow = YES;
-//                }
-//                
-//                [self.recordHUDView startRecordingHUDAtView:self.recordHUDSuperView];
-//                NSLog(@"self.recordHUDView startRecordingHUDAtView:self.recordHUDSuperView");
-//                isSubmit = NO;
-//                //开始录音
-//                if (self.voice != nil) {
-//                    if (self.voice.isRecording) {
-//                        [self.voice stop];
-//                    }
-//                    self.voice = nil;
-//                }
-//                self.voice = [[TRecordAudio alloc] init];
-//                self.voice.delegate = self;
-//                [self.voice start];
-//                [self setTitle:kXHTouchUpToFinish forState:UIControlStateNormal];
-//            }else{
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [[[UIAlertView alloc] initWithTitle:@"麦克风被禁用" message:@"请在iPhone的“设置-隐私-麦克风”中允许T信访问你的麦克风" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
-//                });
-//            }
-//        }];
-//    }
+    AVAudioSession *avSession = [AVAudioSession sharedInstance];
+    if ([avSession respondsToSelector:@selector(requestRecordPermission:)]) {
+        [avSession requestRecordPermission:^(BOOL available) {
+            if (count != self.clickCount) {
+                return ;
+            }
+            if (available) {
+                [[TPlayAudio sharedManager] stop];
+                _duration = 0;
+                if (self.recordHUDView != nil) {
+                    [self.recordHUDView removeFromSuperview];
+                    self.recordHUDView = nil;
+                }
+                
+                if (isShow == NO) {
+                    self.recordHUDView = [[UINib nibWithNibName:@"XHVoiceRecordHUD" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil].lastObject;
+                    isShow = YES;
+                }
+                
+                [self.recordHUDView startRecordingHUDAtView:self.recordHUDSuperView];
+                NSLog(@"self.recordHUDView startRecordingHUDAtView:self.recordHUDSuperView");
+                isSubmit = NO;
+                //开始录音
+                if (self.voice != nil) {
+                    if (self.voice.isRecording) {
+                        [self.voice stop];
+                    }
+                    self.voice = nil;
+                }
+                self.voice = [[TRecordAudio alloc] init];
+                self.voice.delegate = self;
+                [self.voice start];
+                [self setTitle:kXHTouchUpToFinish forState:UIControlStateNormal];
+            }else{
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[[UIAlertView alloc] initWithTitle:@"麦克风被禁用" message:@"请在iPhone的“设置-隐私-麦克风”中允许T信访问你的麦克风" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+                });
+            }
+        }];
+    }
 }
 
 //手指向上滑动松开取消录音
@@ -129,17 +128,17 @@
     self.clickCount++;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideACoverNaviButton" object:nil];
 //    [[SSLogManager sharedManager] writeSuccessLog:@"手指向上滑动后松开取消录音"];
-//    isSubmit = NO;
-//    if (self.recordHUDView != nil) {
-//        typeof(self) __weak weakSelf = self;
-//        [self.recordHUDView cancelRecordCompled:^(BOOL fnished) {
-//            isShow = NO;
-//            weakSelf.recordHUDView = nil;
-//        }];
-//    }
-//    if (self.voice.recorder.isRecording) {
-//        [self.voice stop];
-//    }
+    isSubmit = NO;
+    if (self.recordHUDView != nil) {
+        typeof(self) __weak weakSelf = self;
+        [self.recordHUDView cancelRecordCompled:^(BOOL fnished) {
+            isShow = NO;
+            weakSelf.recordHUDView = nil;
+        }];
+    }
+    if (self.voice.recorder.isRecording) {
+        [self.voice stop];
+    }
     [self setTitle:kXHTouchDownToRecord forState:UIControlStateNormal];
 }
 
@@ -151,24 +150,24 @@
     self.clickCount++;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideACoverNaviButton" object:nil];
 
-//    isSubmit = YES;
-//    NSLog(@"手指松开完成录音");
-//    if (self.recordHUDView != nil) {
-//        NSLog(@"recordHUDView != nil");
-//        typeof(self) __weak weakSelf = self;
-//        [self.recordHUDView cancelRecordCompled:^(BOOL fnished) {
-//            weakSelf.recordHUDView = nil;
-//            isShow = NO;
-//            NSLog(@"recordHUDView = nil");
-//        }];
-//        if (self.voice.recorder.isRecording) {
-//            [self.voice stop];
-//        }else{
-//            if ([self.delegate respondsToSelector:@selector(didTAudioView:duration:)]) {
-//                [self.delegate didTAudioView:self.recordPath duration:_duration > MAXDURATION ? MAXDURATION : _duration];
-//            }
-//        }
-//    }
+    isSubmit = YES;
+    NSLog(@"手指松开完成录音");
+    if (self.recordHUDView != nil) {
+        NSLog(@"recordHUDView != nil");
+        typeof(self) __weak weakSelf = self;
+        [self.recordHUDView cancelRecordCompled:^(BOOL fnished) {
+            weakSelf.recordHUDView = nil;
+            isShow = NO;
+            NSLog(@"recordHUDView = nil");
+        }];
+        if (self.voice.recorder.isRecording) {
+            [self.voice stop];
+        }else{
+            if ([self.delegate respondsToSelector:@selector(didTAudioView:duration:)]) {
+                [self.delegate didTAudioView:self.recordPath duration:_duration > MAXDURATION ? MAXDURATION : _duration];
+            }
+        }
+    }
     
     [self setTitle:kXHTouchDownToRecord forState:UIControlStateNormal];
 }

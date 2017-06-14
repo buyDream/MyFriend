@@ -10,6 +10,19 @@
 #define MyFridend_Prefix_pch
 
 #import "RGKeyString.h"
+//==================singleton==================
+#ifndef CRSingleton
+#define CRSingleton(classname, method)                                                                                                                                                                 \
++(classname *)shared##method {                                                                                                                                                                     \
+static dispatch_once_t pred;                                                                                                                                                                   \
+__strong static classname *shared##classname = nil;                                                                                                                                            \
+dispatch_once(&pred, ^{                                                                                                                                                                        \
+shared##classname = [[self alloc] init];                                                                                                                                                   \
+});                                                                                                                                                                                            \
+return shared##classname;                                                                                                                                                                      \
+}
+#endif
+#define CRManager(classname) CRSingleton(classname, Manager)
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
