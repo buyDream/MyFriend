@@ -39,6 +39,7 @@
 
 }
 
+#pragma mark -- private metho
 
 - (void)p_initalizationTuring {
     self.sythesizer = [[TRRSpeechSythesizer alloc] initWithAPIKey:BaiduAPIKey secretKey:BaiduSecretKey];
@@ -57,6 +58,8 @@
         [apiRequest request_OpenAPIWithInfo:text successBlock:^(NSDictionary *resultDic) {
             NSLog(@"resultDic: %@", resultDic);
             self.outputLabel.text = resultDic[@"text"];
+            // add new
+            [self.sythesizer start:resultDic[@"text"]];
         } failBlock:^(TRRAPIErrorType errorType, NSString *infoStr) {
             NSLog(@"infoStr:%@, ", infoStr );
         }];
@@ -68,18 +71,9 @@
 }
 
 
-#pragma mark -- TRRVoiceRecognitionManagerDelegate
-- (void)onRecognitionResult:(NSString *)result {}
-- (void)onRecognitionError:(NSString *)errStr {}
-- (void)onStartRecognize {}
-- (void)onSpeechStart {}
-- (void)onSpeechEnd {}
-
-
-#pragma mark -- private metho
 - (void)p_configureView {
     self.view.backgroundColor = [UIColor whiteColor];
-    self.outputLabel.text = @"您好，我是技师refrainGo，来自深圳！";
+    self.outputLabel.text = @"您好，技师refrainGo，为您服务！";
     self.inputTextView.layer.cornerRadius = 5;
     self.inputTextView.layer.borderColor = [UIColor greenColor].CGColor;
     self.inputTextView.layer.masksToBounds = YES;
@@ -90,11 +84,6 @@
 }
 
 #pragma mark -- UITextViewDelegate
-- (void)textViewDidEndEditing:(UITextView *)textView {
-
-    
-}
-
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
 
@@ -110,20 +99,16 @@
 - (void)didTAudioView:(NSString *)audioPath duration:(NSTimeInterval)duration {
 
 }
+
+- (void)didReceiveResult:(NSString *)result {
+    _inputTextView.text = result;
+    [self p_sendMessage:result];
+}
+
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (![_inputTextView isExclusiveTouch]) {
         [_inputTextView resignFirstResponder];
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -20,6 +20,7 @@
  */
 -(void)didTAudioView:(NSString*)audioPath duration:(NSTimeInterval)duration;
 
+- (void)didReceiveResult:(NSString *)result;
 @end
 
 @interface RecordButton : UIButton

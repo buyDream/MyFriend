@@ -12,16 +12,19 @@
 #import "TRecordAudio.h"
 #import "TPlayAudio.h"
 
+#import "TRRVoiceRecognitionManager.h"
+
 #define kXHTouchDownToRecord @"按住 说话"
 #define kXHTouchUpToFinish @"松开 结束"
 
-@interface RecordButton () <TRecordAudioDelegate> {
+@interface RecordButton () <TRecordAudioDelegate, TRRVoiceRecognitionManagerDelegate> {
     BOOL isSubmit;
     CGFloat _duration;
     BOOL isShow;
+    TRRVoiceRecognitionManager *voiceInstance;
 }
 @property(nonatomic, strong) NSString *recordPath;
-@property(nonatomic, retain) TRecordAudio *voice;
+//@property(nonatomic, retain) TRecordAudio *voice;
 @property (nonatomic, strong) XHVoiceRecordHUD  *recordHUDView;
 @property (nonatomic, assign) BOOL  isValid;
 @property(nonatomic, assign) NSTimeInterval updateTime; // 控制列表刷新频率
@@ -101,15 +104,15 @@
                 NSLog(@"self.recordHUDView startRecordingHUDAtView:self.recordHUDSuperView");
                 isSubmit = NO;
                 //开始录音
-                if (self.voice != nil) {
-                    if (self.voice.isRecording) {
-                        [self.voice stop];
-                    }
-                    self.voice = nil;
-                }
-                self.voice = [[TRecordAudio alloc] init];
-                self.voice.delegate = self;
-                [self.voice start];
+//                if (self.voice != nil) {
+//                    if (self.voice.isRecording) {
+//                        [self.voice stop];
+//                    }
+//                    self.voice = nil;
+//                }
+//                self.voice = [[TRecordAudio alloc] init];
+//                self.voice.delegate = self;
+//                [self.voice start];
                 [self setTitle:kXHTouchUpToFinish forState:UIControlStateNormal];
             }else{
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -118,6 +121,25 @@
             }
         }];
     }
+    
+    
+    //add new
+    voiceInstance = [TRRVoiceRecognitionManager sharedInstance];
+    [voiceInstance setApiKey:BaiduAPIKey secretKey:BaiduSecretKey];
+    voiceInstance.delegate = self;
+    NSArray *array = @[@(20000)];
+    voiceInstance.recognitionPropertyList = array;
+    int startStatus = [voiceInstance startVoiceRecognition];
+    if (startStatus != 0) {
+        NSLog(@"err %d", startStatus);
+//        _recognizeResultTextView.text = [NSString stringWithFormat:@"err = %i", startStatus ];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [[[UIAlertView alloc] initWithTitle:@"麦克风被禁用" message:@"请在iPhone的“设置-隐私-麦克风”中允许T信访问你的麦克风" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+//        });
+    }
+    
+    
+    
 }
 
 //手指向上滑动松开取消录音
@@ -136,10 +158,13 @@
             weakSelf.recordHUDView = nil;
         }];
     }
-    if (self.voice.recorder.isRecording) {
-        [self.voice stop];
-    }
+//    if (self.voice.recorder.isRecording) {
+//        [self.voice stop];
+//    }
     [self setTitle:kXHTouchDownToRecord forState:UIControlStateNormal];
+    
+    // add new
+    [voiceInstance cancleRecognize];
 }
 
 //松开手指完成录音
@@ -160,13 +185,13 @@
             isShow = NO;
             NSLog(@"recordHUDView = nil");
         }];
-        if (self.voice.recorder.isRecording) {
-            [self.voice stop];
-        }else{
-            if ([self.delegate respondsToSelector:@selector(didTAudioView:duration:)]) {
-                [self.delegate didTAudioView:self.recordPath duration:_duration > MAXDURATION ? MAXDURATION : _duration];
-            }
-        }
+//        if (self.voice.recorder.isRecording) {
+//            [self.voice stop];
+//        }else{
+//            if ([self.delegate respondsToSelector:@selector(didTAudioView:duration:)]) {
+//                [self.delegate didTAudioView:self.recordPath duration:_duration > MAXDURATION ? MAXDURATION : _duration];
+//            }
+//        }
     }
     
     [self setTitle:kXHTouchDownToRecord forState:UIControlStateNormal];
@@ -234,6 +259,40 @@
 //        [self.voice stop];
 //    }
     [self setTitle:kXHTouchDownToRecord forState:UIControlStateNormal];
+}
+
+
+#pragma mark -- TRRVoiceRecognitionManagerDelegate
+- (void)onRecognitionResult:(NSString *)result {
+//    _recognizeResultTextView.text = result;
+    NSLog(@"result = %@", result);
+    NSString *resultStr;
+    if (!result || [result isEqualToString:@""]) {
+        resultStr = @"未检测到说话";
+    }
+    if ([self.delegate respondsToSelector:@selector(didReceiveResult:)]) {
+        [self.delegate didReceiveResult:result];
+    }
+}
+
+- (void)onRecognitionError:(NSString *)errStr {
+//    _recognizeResultTextView.text = NSLocalizedString(errStr, nil);
+    NSLog(@"Error = %@", errStr);
+}
+
+- (void)onStartRecognize {
+//    _recognizeResultTextView.text = @"正在语音识别，请讲话";
+    NSLog(@"正在语音识别，请讲话");
+}
+
+- (void)onSpeechStart {
+//    _recognizeResultTextView.text = @"检测到已说话";
+    NSLog(@"检测到已说话");
+}
+
+- (void)onSpeechEnd {
+//    _recognizeResultTextView.text = @"检测到已停止说话";
+    NSLog(@"检测到已停止说话");
 }
 
 
