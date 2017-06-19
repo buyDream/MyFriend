@@ -9,15 +9,17 @@
 
 #import "XHVoiceRecordHUD.h"
 #import "RecordButton.h"
-#import "TRecordAudio.h"
-#import "TPlayAudio.h"
+//#import "TRecordAudio.h"
+//#import "TPlayAudio.h"
 
 #import "TRRVoiceRecognitionManager.h"
 
-#define kXHTouchDownToRecord @"按住 说话"
-#define kXHTouchUpToFinish @"松开 结束"
 
-@interface RecordButton () <TRecordAudioDelegate, TRRVoiceRecognitionManagerDelegate> {
+static  NSString *const kXHTouchDownToRecord = @"按住 说话";
+static  NSString *const kXHTouchUpToFinish = @"按住 结束";
+
+
+@interface RecordButton () <TRRVoiceRecognitionManagerDelegate> {
     BOOL isSubmit;
     CGFloat _duration;
     BOOL isShow;
@@ -50,6 +52,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self setup];
 }
 
@@ -79,49 +82,15 @@
     }
     self.updateTime = [[NSDate date] timeIntervalSince1970];
     self.isValid = YES;
-    self.clickCount++;
-    int count = self.clickCount;
-    AVAudioSession *avSession = [AVAudioSession sharedInstance];
-    if ([avSession respondsToSelector:@selector(requestRecordPermission:)]) {
-        [avSession requestRecordPermission:^(BOOL available) {
-            if (count != self.clickCount) {
-                return ;
-            }
-            if (available) {
-                [[TPlayAudio sharedManager] stop];
-                _duration = 0;
-                if (self.recordHUDView != nil) {
-                    [self.recordHUDView removeFromSuperview];
-                    self.recordHUDView = nil;
-                }
-                
-                if (isShow == NO) {
-                    self.recordHUDView = [[UINib nibWithNibName:@"XHVoiceRecordHUD" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil].lastObject;
-                    isShow = YES;
-                }
-                
-                [self.recordHUDView startRecordingHUDAtView:self.recordHUDSuperView];
-                NSLog(@"self.recordHUDView startRecordingHUDAtView:self.recordHUDSuperView");
-                isSubmit = NO;
-                //开始录音
-//                if (self.voice != nil) {
-//                    if (self.voice.isRecording) {
-//                        [self.voice stop];
-//                    }
-//                    self.voice = nil;
-//                }
-//                self.voice = [[TRecordAudio alloc] init];
-//                self.voice.delegate = self;
-//                [self.voice start];
-                [self setTitle:kXHTouchUpToFinish forState:UIControlStateNormal];
-            }else{
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[[UIAlertView alloc] initWithTitle:@"麦克风被禁用" message:@"请在iPhone的“设置-隐私-麦克风”中允许T信访问你的麦克风" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
-                });
-            }
-        }];
+    if (isShow == NO) {
+        self.recordHUDView = [[UINib nibWithNibName:@"XHVoiceRecordHUD" bundle:[NSBundle mainBundle]] instantiateWithOwner:nil options:nil].lastObject;
+        isShow = YES;
     }
     
+    [self.recordHUDView startRecordingHUDAtView:self.recordHUDSuperView];
+    NSLog(@"self.recordHUDView startRecordingHUDAtView:self.recordHUDSuperView");
+    isSubmit = NO;
+    [self setTitle:kXHTouchUpToFinish forState:UIControlStateNormal];
     
     //add new
     voiceInstance = [TRRVoiceRecognitionManager sharedInstance];
@@ -131,7 +100,7 @@
     voiceInstance.recognitionPropertyList = array;
     int startStatus = [voiceInstance startVoiceRecognition];
     if (startStatus != 0) {
-        NSLog(@"err %d", startStatus);
+        NSLog(@"startStatus %d", startStatus);
 //        _recognizeResultTextView.text = [NSString stringWithFormat:@"err = %i", startStatus ];
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //            [[[UIAlertView alloc] initWithTitle:@"麦克风被禁用" message:@"请在iPhone的“设置-隐私-麦克风”中允许T信访问你的麦克风" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
@@ -149,7 +118,6 @@
     }
     self.clickCount++;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideACoverNaviButton" object:nil];
-//    [[SSLogManager sharedManager] writeSuccessLog:@"手指向上滑动后松开取消录音"];
     isSubmit = NO;
     if (self.recordHUDView != nil) {
         typeof(self) __weak weakSelf = self;

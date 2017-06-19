@@ -27,6 +27,7 @@
 
 @implementation RGMainViewController {
     TRRTuringRequestManager *apiRequest;
+    BOOL chatState;
 }
 
 
@@ -66,10 +67,13 @@
     } failBlock:^(TRRAPIErrorType errorType, NSString *infoStr) {
         
     }];
-
     
 }
 
+- (IBAction)startAutoChat:(UIButton *)sender {
+    chatState = !chatState;
+    [sender setTitle:chatState ? @"关闭对话": @"对话" forState:UIControlStateNormal];
+}
 
 - (void)p_configureView {
     self.view.backgroundColor = [UIColor whiteColor];

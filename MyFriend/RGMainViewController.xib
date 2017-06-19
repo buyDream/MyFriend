@@ -25,9 +25,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ic-rh-g3o">
-                    <rect key="frame" x="20" y="263.5" width="46" height="30"/>
+                    <rect key="frame" x="20" y="263.5" width="70" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="46" id="GT3-o7-HIX"/>
+                        <constraint firstAttribute="width" constant="70" id="GT3-o7-HIX"/>
                         <constraint firstAttribute="height" constant="30" id="zLb-zi-J8Q"/>
                     </constraints>
                     <state key="normal" title="语音开关"/>
@@ -54,11 +54,20 @@
                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HB5-0L-KUA">
+                    <rect key="frame" x="20" y="592" width="128" height="40"/>
+                    <state key="normal" title="对话"/>
+                    <state key="selected" title="关闭对话"/>
+                    <connections>
+                        <action selector="startAutoChat:" destination="-1" eventType="touchUpInside" id="MlP-4k-xMT"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="tYs-kN-4My" firstAttribute="centerX" secondItem="aAW-Du-nxa" secondAttribute="centerX" id="1Gf-eW-zaK"/>
                 <constraint firstAttribute="bottom" secondItem="tYs-kN-4My" secondAttribute="bottom" constant="150" id="4KJ-7o-XRQ"/>
+                <constraint firstItem="LS3-AU-DdD" firstAttribute="leading" secondItem="HB5-0L-KUA" secondAttribute="trailing" id="9IF-K9-hNX"/>
                 <constraint firstItem="aAW-Du-nxa" firstAttribute="top" secondItem="dFR-ES-kWr" secondAttribute="top" constant="50" id="D13-dR-QqA"/>
                 <constraint firstItem="tYs-kN-4My" firstAttribute="height" secondItem="aAW-Du-nxa" secondAttribute="height" id="I0V-Dq-8hp"/>
                 <constraint firstItem="aAW-Du-nxa" firstAttribute="leading" secondItem="dFR-ES-kWr" secondAttribute="leading" constant="15" id="R55-Oe-UqS"/>
@@ -66,9 +75,12 @@
                 <constraint firstItem="7ic-rh-g3o" firstAttribute="top" secondItem="aAW-Du-nxa" secondAttribute="bottom" constant="30" id="VKL-ri-AVA"/>
                 <constraint firstItem="7ic-rh-g3o" firstAttribute="leading" secondItem="dFR-ES-kWr" secondAttribute="leading" constant="20" id="dSK-e0-kHY"/>
                 <constraint firstAttribute="bottom" secondItem="LS3-AU-DdD" secondAttribute="bottom" constant="35" id="hqv-BI-FzT"/>
+                <constraint firstItem="LS3-AU-DdD" firstAttribute="height" secondItem="HB5-0L-KUA" secondAttribute="height" id="itB-S3-hlc"/>
                 <constraint firstItem="LS3-AU-DdD" firstAttribute="centerX" secondItem="tYs-kN-4My" secondAttribute="centerX" id="kEi-o8-8wg"/>
                 <constraint firstItem="tYs-kN-4My" firstAttribute="width" secondItem="aAW-Du-nxa" secondAttribute="width" id="vAb-b0-8cY"/>
+                <constraint firstItem="HB5-0L-KUA" firstAttribute="leading" secondItem="dFR-ES-kWr" secondAttribute="leading" constant="20" id="xMH-bX-cjp"/>
                 <constraint firstAttribute="trailing" secondItem="aAW-Du-nxa" secondAttribute="trailing" constant="15" id="yfP-yE-lIg"/>
+                <constraint firstItem="LS3-AU-DdD" firstAttribute="centerY" secondItem="HB5-0L-KUA" secondAttribute="centerY" id="zmA-vw-3BG"/>
             </constraints>
             <point key="canvasLocation" x="-31.5" y="-180.5"/>
         </view>

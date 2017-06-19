@@ -33,6 +33,7 @@
 }
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     [self setup];
 }
 
@@ -58,13 +59,13 @@
 - (void)pauseRecord {
     [self configRecoding:YES];
     self.remindLabel.backgroundColor = [UIColor clearColor];
-    self.remindLabel.text = @"手指上滑 取消发送";
+    self.remindLabel.text = @"手指上滑 取消录音";
 }
 
 - (void)resaueRecord {
     [self configRecoding:NO];
     self.remindLabel.backgroundColor = [UIColor colorWithRed:244 / 255.0 green:82 / 255.0 blue:65 / 255.0 alpha:1.0];
-    self.remindLabel.text = @"松开手指 取消发送";
+    self.remindLabel.text = @"松开手指 取消录音";
 }
 
 - (void)stopRecordCompled:(void (^)(BOOL fnished))compled {
