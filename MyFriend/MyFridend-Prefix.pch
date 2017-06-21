@@ -10,6 +10,7 @@
 #define MyFridend_Prefix_pch
 
 #import "RGKeyString.h"
+#import "BaseDefine.h"
 //==================singleton==================
 #ifndef CRSingleton
 #define CRSingleton(classname, method)                                                                                                                                                                 \

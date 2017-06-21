@@ -13,7 +13,9 @@
 #import "TRRVoiceRecognitionManager.h"
 #import "RecordButton.h"
 #import "TRRTuringRequestManager.h"
+#import "RGMessageDetailViewController.h"
 
+#import "BaseNavigationViewController.h"
 @interface RGMainViewController ()<TRRVoiceRecognitionManagerDelegate, UITextViewDelegate, RecordButtonDelegate>
 @property (nonatomic, strong) TRRSpeechSythesizer *sythesizer;
 @property (nonatomic, strong) TRRTuringAPIConfig  *apiConfig;
@@ -23,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *onOffButton;
 @property (weak, nonatomic) IBOutlet RecordButton *voiceButton;
 @property (weak, nonatomic) IBOutlet UIButton *muteButton;
+@property (weak, nonatomic) IBOutlet UIButton *skipButton;
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
 
 @end
 
@@ -58,9 +62,19 @@
         NSLog(@"userId: %@", userId);
         [apiRequest request_OpenAPIWithInfo:text successBlock:^(NSDictionary *resultDic) {
             NSLog(@"resultDic: %@", resultDic);
-            self.outputLabel.text = resultDic[@"text"];
-            // add new
-            if (!self.muteButton.selected) [self.sythesizer start:resultDic[@"text"]];
+            if (resultDic[@"text"]) {
+                self.outputLabel.text = resultDic[@"text"];
+                // add new
+                if (!self.muteButton.selected) [self.sythesizer start:resultDic[@"text"]];
+            }
+            if (resultDic[@"url"]) {
+                self.messageLabel.text = resultDic[@"url"];
+                self.skipButton.hidden = NO;
+            } else {
+                self.skipButton.hidden = YES;
+                self.messageLabel.text = @"";
+            }
+            
         } failBlock:^(TRRAPIErrorType errorType, NSString *infoStr) {
             NSLog(@"infoStr:%@, ", infoStr );
         }];
@@ -78,6 +92,21 @@
 }
 - (IBAction)clickMutebutton:(UIButton *)sender {
     sender.selected = !sender.selected;
+}
+- (IBAction)checkDetailMessage:(UIButton *)sender {
+    RGMessageDetailViewController *detailVC = [RGMessageDetailViewController new];
+    detailVC.aUrl = self.messageLabel.text;
+    BaseNavigationViewController *nav = [[BaseNavigationViewController alloc] initWithRootViewController:detailVC];
+//    [self.navigationController pushViewController:detailVC animated:YES];
+//    [self presentViewController:nav animated:YES completion:^{
+//        NSLog(@"YOU COME IN");
+//    }];
+    NSString *iTunesLink = self.messageLabel.text;
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink] options:nil completionHandler:^(BOOL success) {
+        NSLog(@"what it is ?");
+    }];
+    
 }
 
 - (void)p_configureView {

@@ -51,6 +51,8 @@
 		5E9B617A1EED33BD0081088C /* icon_Record_default9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9B61691EED33BD0081088C /* icon_Record_default9@2x.png */; };
 		5E9B617B1EED33BD0081088C /* icon_Record_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9B616A1EED33BD0081088C /* icon_Record_default@2x.png */; };
 		5EEA1FFF1EFA1A5D0014A947 /* RGSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA1FFE1EFA1A5D0014A947 /* RGSingleton.m */; };
+		5EEA20021EFA4E230014A947 /* RGMessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA20011EFA4E230014A947 /* RGMessageDetailViewController.m */; };
+		5EEA20061EFA55030014A947 /* BaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA20051EFA55030014A947 /* BaseNavigationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +122,11 @@
 		5E9B616A1EED33BD0081088C /* icon_Record_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_Record_default@2x.png"; sourceTree = "<group>"; };
 		5EEA1FFD1EFA1A5D0014A947 /* RGSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGSingleton.h; sourceTree = "<group>"; };
 		5EEA1FFE1EFA1A5D0014A947 /* RGSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGSingleton.m; sourceTree = "<group>"; };
+		5EEA20001EFA4E230014A947 /* RGMessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGMessageDetailViewController.h; sourceTree = "<group>"; };
+		5EEA20011EFA4E230014A947 /* RGMessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGMessageDetailViewController.m; sourceTree = "<group>"; };
+		5EEA20041EFA55030014A947 /* BaseNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNavigationViewController.h; sourceTree = "<group>"; };
+		5EEA20051EFA55030014A947 /* BaseNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationViewController.m; sourceTree = "<group>"; };
+		5EEA20071EFA57B90014A947 /* BaseDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseDefine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,8 +177,11 @@
 				5E1B7B3C1EECFBFB00AF3BFE /* RGMainViewController.m */,
 				5E1B7BAF1EED07F700AF3BFE /* RGMainViewController.xib */,
 				5E1B7BAC1EED02DE00AF3BFE /* MyFridend-Prefix.pch */,
+				5EEA20001EFA4E230014A947 /* RGMessageDetailViewController.h */,
+				5EEA20011EFA4E230014A947 /* RGMessageDetailViewController.m */,
 				5EEA1FFD1EFA1A5D0014A947 /* RGSingleton.h */,
 				5EEA1FFE1EFA1A5D0014A947 /* RGSingleton.m */,
+				5EEA20031EFA55030014A947 /* Base */,
 				5E9B61501EED311C0081088C /* RecordButton */,
 				5E1B7B7A1EECFD2400AF3BFE /* header */,
 				5E1B7B811EECFD2400AF3BFE /* ThirdParty */,
@@ -319,6 +329,16 @@
 			path = VoiceHudImages;
 			sourceTree = "<group>";
 		};
+		5EEA20031EFA55030014A947 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				5EEA20041EFA55030014A947 /* BaseNavigationViewController.h */,
+				5EEA20051EFA55030014A947 /* BaseNavigationViewController.m */,
+				5EEA20071EFA57B90014A947 /* BaseDefine.h */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -419,6 +439,8 @@
 				5E1B7B931EECFD2400AF3BFE /* CADebugMacros.cpp in Sources */,
 				5E1B7B221EECFAE200AF3BFE /* main.m in Sources */,
 				5E1B7B951EECFD2400AF3BFE /* CAXException.cpp in Sources */,
+				5EEA20021EFA4E230014A947 /* RGMessageDetailViewController.m in Sources */,
+				5EEA20061EFA55030014A947 /* BaseNavigationViewController.m in Sources */,
 				5E1B7B961EECFD2400AF3BFE /* JSONKit.m in Sources */,
 				5E1B7B941EECFD2400AF3BFE /* CAStreamBasicDescription.cpp in Sources */,
 				5E1B7B981EECFD2400AF3BFE /* TTTAttributedLabel.m in Sources */,
