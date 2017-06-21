@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RGMainViewController">
             <connections>
                 <outlet property="inputTextView" destination="tYs-kN-4My" id="Old-pi-06g"/>
+                <outlet property="muteButton" destination="7ic-rh-g3o" id="psS-Tb-ycv"/>
                 <outlet property="onOffButton" destination="7ic-rh-g3o" id="JbL-Dx-23V"/>
                 <outlet property="outputLabel" destination="aAW-Du-nxa" id="PhZ-4j-Ntb"/>
                 <outlet property="view" destination="dFR-ES-kWr" id="xCX-ZQ-llc"/>
@@ -30,7 +31,10 @@
                         <constraint firstAttribute="width" constant="70" id="GT3-o7-HIX"/>
                         <constraint firstAttribute="height" constant="30" id="zLb-zi-J8Q"/>
                     </constraints>
-                    <state key="normal" title="语音开关"/>
+                    <state key="normal" title="静音"/>
+                    <connections>
+                        <action selector="clickMutebutton:" destination="-1" eventType="touchUpInside" id="vNn-V6-oVb"/>
+                    </connections>
                 </button>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tYs-kN-4My">
                     <rect key="frame" x="15" y="333.5" width="345" height="183.5"/>
@@ -53,8 +57,12 @@
                     <state key="normal" title="按住说话">
                         <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="disabled" title="不可用">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HB5-0L-KUA">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HB5-0L-KUA">
                     <rect key="frame" x="20" y="592" width="128" height="40"/>
                     <state key="normal" title="对话"/>
                     <state key="selected" title="关闭对话"/>

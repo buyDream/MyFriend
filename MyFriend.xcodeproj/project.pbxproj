@@ -50,6 +50,7 @@
 		5E9B61791EED33BD0081088C /* icon_Record_default8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9B61681EED33BD0081088C /* icon_Record_default8@2x.png */; };
 		5E9B617A1EED33BD0081088C /* icon_Record_default9@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9B61691EED33BD0081088C /* icon_Record_default9@2x.png */; };
 		5E9B617B1EED33BD0081088C /* icon_Record_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E9B616A1EED33BD0081088C /* icon_Record_default@2x.png */; };
+		5EEA1FFF1EFA1A5D0014A947 /* RGSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EEA1FFE1EFA1A5D0014A947 /* RGSingleton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +118,8 @@
 		5E9B61681EED33BD0081088C /* icon_Record_default8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_Record_default8@2x.png"; sourceTree = "<group>"; };
 		5E9B61691EED33BD0081088C /* icon_Record_default9@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_Record_default9@2x.png"; sourceTree = "<group>"; };
 		5E9B616A1EED33BD0081088C /* icon_Record_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_Record_default@2x.png"; sourceTree = "<group>"; };
+		5EEA1FFD1EFA1A5D0014A947 /* RGSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RGSingleton.h; sourceTree = "<group>"; };
+		5EEA1FFE1EFA1A5D0014A947 /* RGSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RGSingleton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +170,8 @@
 				5E1B7B3C1EECFBFB00AF3BFE /* RGMainViewController.m */,
 				5E1B7BAF1EED07F700AF3BFE /* RGMainViewController.xib */,
 				5E1B7BAC1EED02DE00AF3BFE /* MyFridend-Prefix.pch */,
+				5EEA1FFD1EFA1A5D0014A947 /* RGSingleton.h */,
+				5EEA1FFE1EFA1A5D0014A947 /* RGSingleton.m */,
 				5E9B61501EED311C0081088C /* RecordButton */,
 				5E1B7B7A1EECFD2400AF3BFE /* header */,
 				5E1B7B811EECFD2400AF3BFE /* ThirdParty */,
@@ -406,6 +411,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EEA1FFF1EFA1A5D0014A947 /* RGSingleton.m in Sources */,
 				5E9B61561EED311C0081088C /* RecordButton.m in Sources */,
 				5E1B7B251EECFAE200AF3BFE /* AppDelegate.m in Sources */,
 				5E1B7B3D1EECFBFB00AF3BFE /* RGMainViewController.m in Sources */,

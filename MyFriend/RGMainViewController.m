@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *outputLabel;
 @property (weak, nonatomic) IBOutlet UIButton *onOffButton;
 @property (weak, nonatomic) IBOutlet RecordButton *voiceButton;
+@property (weak, nonatomic) IBOutlet UIButton *muteButton;
 
 @end
 
@@ -29,7 +30,6 @@
     TRRTuringRequestManager *apiRequest;
     BOOL chatState;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,16 +40,16 @@
 
 }
 
-#pragma mark -- private metho
+#pragma mark -- private method
 
 - (void)p_initalizationTuring {
     self.sythesizer = [[TRRSpeechSythesizer alloc] initWithAPIKey:BaiduAPIKey secretKey:BaiduSecretKey];
     self.apiConfig = [[TRRTuringAPIConfig alloc] initWithAPIKey:TuringAPIKey];
     apiRequest = [[TRRTuringRequestManager alloc]
                                           initWithConfig:self.apiConfig];
-    TRRVoiceRecognitionManager *sharedInstance=[TRRVoiceRecognitionManager sharedInstance];
-    [sharedInstance setApiKey:BaiduAPIKey secretKey:BaiduSecretKey];
-    sharedInstance.delegate = self;
+//    TRRVoiceRecognitionManager *sharedInstance=[TRRVoiceRecognitionManager sharedInstance];
+//    [sharedInstance setApiKey:BaiduAPIKey secretKey:BaiduSecretKey];
+//    sharedInstance.delegate = self;
     
 }
 
@@ -60,7 +60,7 @@
             NSLog(@"resultDic: %@", resultDic);
             self.outputLabel.text = resultDic[@"text"];
             // add new
-            [self.sythesizer start:resultDic[@"text"]];
+            if (!self.muteButton.selected) [self.sythesizer start:resultDic[@"text"]];
         } failBlock:^(TRRAPIErrorType errorType, NSString *infoStr) {
             NSLog(@"infoStr:%@, ", infoStr );
         }];
@@ -72,7 +72,12 @@
 
 - (IBAction)startAutoChat:(UIButton *)sender {
     chatState = !chatState;
+    self.voiceButton.enabled = !self.voiceButton.enabled;
     [sender setTitle:chatState ? @"关闭对话": @"对话" forState:UIControlStateNormal];
+    self.inputTextView.text = chatState ? @"请开始你的表演" : @"";
+}
+- (IBAction)clickMutebutton:(UIButton *)sender {
+    sender.selected = !sender.selected;
 }
 
 - (void)p_configureView {
@@ -100,9 +105,6 @@
     return YES;
 }
 
-- (void)didTAudioView:(NSString *)audioPath duration:(NSTimeInterval)duration {
-
-}
 
 - (void)didReceiveResult:(NSString *)result {
     _inputTextView.text = result;
@@ -110,9 +112,7 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (![_inputTextView isExclusiveTouch]) {
-        [_inputTextView resignFirstResponder];
-    }
+    if (![_inputTextView isExclusiveTouch]) [_inputTextView resignFirstResponder];
 }
 
 @end

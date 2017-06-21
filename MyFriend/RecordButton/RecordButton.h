@@ -12,15 +12,16 @@
 
 @protocol RecordButtonDelegate <NSObject>
 @required
+- (void)didReceiveResult:(NSString *)result;
 /**
  *    录音完成时调用
  *
  *    @param audioPath 录音的路径
  *    @param duration  录音的时长
  */
+@optional
 -(void)didTAudioView:(NSString*)audioPath duration:(NSTimeInterval)duration;
 
-- (void)didReceiveResult:(NSString *)result;
 @end
 
 @interface RecordButton : UIButton
