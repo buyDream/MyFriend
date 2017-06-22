@@ -7,8 +7,7 @@
 //
 
 #import "BaseNavigationViewController.h"
-//#import "BaseDefine.h"
-//#import "UIImageUtil.h"
+
 @interface BaseNavigationViewController ()<UIGestureRecognizerDelegate,UINavigationControllerDelegate>
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface RGMessageDetailViewController : UIViewController
-@property (nonatomic, strong) NSString *aUrl;
+//@property (nonatomic, strong) NSString *aUrl;
+- (instancetype)initWithUrl:(NSString *)urlString;
 
 @end

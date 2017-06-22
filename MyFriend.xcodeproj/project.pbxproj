@@ -176,7 +176,6 @@
 				5E1B7B3B1EECFBFB00AF3BFE /* RGMainViewController.h */,
 				5E1B7B3C1EECFBFB00AF3BFE /* RGMainViewController.m */,
 				5E1B7BAF1EED07F700AF3BFE /* RGMainViewController.xib */,
-				5E1B7BAC1EED02DE00AF3BFE /* MyFridend-Prefix.pch */,
 				5EEA20001EFA4E230014A947 /* RGMessageDetailViewController.h */,
 				5EEA20011EFA4E230014A947 /* RGMessageDetailViewController.m */,
 				5EEA1FFD1EFA1A5D0014A947 /* RGSingleton.h */,
@@ -189,6 +188,7 @@
 				5E1B7B2C1EECFAE200AF3BFE /* Assets.xcassets */,
 				5E1B7B2E1EECFAE200AF3BFE /* LaunchScreen.storyboard */,
 				5E1B7B311EECFAE200AF3BFE /* Info.plist */,
+				5E1B7BAC1EED02DE00AF3BFE /* MyFridend-Prefix.pch */,
 				5E1B7B391EECFB5400AF3BFE /* Config */,
 				5E1B7B201EECFAE200AF3BFE /* Supporting Files */,
 			);

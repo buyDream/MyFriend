@@ -16,7 +16,7 @@
 #import "RGMessageDetailViewController.h"
 
 #import "BaseNavigationViewController.h"
-@interface RGMainViewController ()<TRRVoiceRecognitionManagerDelegate, UITextViewDelegate, RecordButtonDelegate>
+@interface RGMainViewController () <UITextViewDelegate, RecordButtonDelegate>
 @property (nonatomic, strong) TRRSpeechSythesizer *sythesizer;
 @property (nonatomic, strong) TRRTuringAPIConfig  *apiConfig;
 
@@ -33,6 +33,7 @@
 @implementation RGMainViewController {
     TRRTuringRequestManager *apiRequest;
     BOOL chatState;
+    NSString *_messageText;
 }
 
 - (void)viewDidLoad {
@@ -44,46 +45,7 @@
 
 }
 
-#pragma mark -- private method
-
-- (void)p_initalizationTuring {
-    self.sythesizer = [[TRRSpeechSythesizer alloc] initWithAPIKey:BaiduAPIKey secretKey:BaiduSecretKey];
-    self.apiConfig = [[TRRTuringAPIConfig alloc] initWithAPIKey:TuringAPIKey];
-    apiRequest = [[TRRTuringRequestManager alloc]
-                                          initWithConfig:self.apiConfig];
-//    TRRVoiceRecognitionManager *sharedInstance=[TRRVoiceRecognitionManager sharedInstance];
-//    [sharedInstance setApiKey:BaiduAPIKey secretKey:BaiduSecretKey];
-//    sharedInstance.delegate = self;
-    
-}
-
-- (void)p_sendMessage:(NSString *)text {
-    [_apiConfig request_UserIDwithSuccessBlock:^(NSString *userId) {
-        NSLog(@"userId: %@", userId);
-        [apiRequest request_OpenAPIWithInfo:text successBlock:^(NSDictionary *resultDic) {
-            NSLog(@"resultDic: %@", resultDic);
-            if (resultDic[@"text"]) {
-                self.outputLabel.text = resultDic[@"text"];
-                // add new
-                if (!self.muteButton.selected) [self.sythesizer start:resultDic[@"text"]];
-            }
-            if (resultDic[@"url"]) {
-                self.messageLabel.text = resultDic[@"url"];
-                self.skipButton.hidden = NO;
-            } else {
-                self.skipButton.hidden = YES;
-                self.messageLabel.text = @"";
-            }
-            
-        } failBlock:^(TRRAPIErrorType errorType, NSString *infoStr) {
-            NSLog(@"infoStr:%@, ", infoStr );
-        }];
-    } failBlock:^(TRRAPIErrorType errorType, NSString *infoStr) {
-        
-    }];
-    
-}
-
+#pragma mark -- 按钮点击事件
 - (IBAction)startAutoChat:(UIButton *)sender {
     chatState = !chatState;
     self.voiceButton.enabled = !self.voiceButton.enabled;
@@ -94,19 +56,72 @@
     sender.selected = !sender.selected;
 }
 - (IBAction)checkDetailMessage:(UIButton *)sender {
-    RGMessageDetailViewController *detailVC = [RGMessageDetailViewController new];
-    detailVC.aUrl = self.messageLabel.text;
-    BaseNavigationViewController *nav = [[BaseNavigationViewController alloc] initWithRootViewController:detailVC];
+//    // 进入自定义view
+//    RGMessageDetailViewController *detailVC = [[RGMessageDetailViewController alloc] initWithUrl:_messageText];
+//    BaseNavigationViewController *nav = [[BaseNavigationViewController alloc] initWithRootViewController:detailVC];
 //    [self.navigationController pushViewController:detailVC animated:YES];
 //    [self presentViewController:nav animated:YES completion:^{
 //        NSLog(@"YOU COME IN");
+//        self.inputTextView.text = @"";
+//
 //    }];
-    NSString *iTunesLink = self.messageLabel.text;
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
+//     进入Safari
+    NSString *iTunesLink = _messageText;
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]]; // iOS 10 抛弃
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink] options:nil completionHandler:^(BOOL success) {
         NSLog(@"what it is ?");
     }];
     
+}
+
+#pragma mark -- private method
+- (void)p_initalizationTuring {
+    self.sythesizer = [[TRRSpeechSythesizer alloc] initWithAPIKey:BaiduAPIKey secretKey:BaiduSecretKey];
+    self.apiConfig = [[TRRTuringAPIConfig alloc] initWithAPIKey:TuringAPIKey];
+    apiRequest = [[TRRTuringRequestManager alloc]
+                  initWithConfig:self.apiConfig];
+    //    TRRVoiceRecognitionManager *sharedInstance=[TRRVoiceRecognitionManager sharedInstance];
+    //    [sharedInstance setApiKey:BaiduAPIKey secretKey:BaiduSecretKey];
+    //    sharedInstance.delegate = self;
+    
+}
+
+- (void)p_sendMessage:(NSString *)text {
+    [_apiConfig request_UserIDwithSuccessBlock:^(NSString *userId) {
+        NSLog(@"userId: %@", userId);
+        [apiRequest request_OpenAPIWithInfo:text successBlock:^(NSDictionary *resultDic) {
+            NSLog(@"resultDic: %@", resultDic);
+            [self p_parseResult:resultDic];
+            //            apiRequest = nil;
+            /*令实例变量不再引用apiRequest
+             （想多了，只要在TRRTuringRequestManager里实现完成块的事件后，不再保留块即可避免循环引用）
+             并且如果这样设计的话，还会导致，apiRequest无法多次使用
+             */
+        } failBlock:^(TRRAPIErrorType errorType, NSString *infoStr) {
+            NSLog(@"infoStr:%@, ", infoStr );
+        }];
+    } failBlock:^(TRRAPIErrorType errorType, NSString *infoStr) {
+        
+    }];
+    
+}
+
+- (void)p_parseResult:(NSDictionary *)resultDic {
+    if (resultDic[@"text"]) {
+        self.outputLabel.text = resultDic[@"text"];
+        // add new
+        if (!self.muteButton.selected) [self.sythesizer start:resultDic[@"text"]];
+    }
+    
+    // 如果有详细信息，则展示
+    if (resultDic[@"url"]) {
+        _messageText = resultDic[@"url"];
+        self.messageLabel.text = _messageText;
+        self.skipButton.hidden = NO;
+    } else {
+        self.skipButton.hidden = YES;
+        self.messageLabel.text = @"";
+    }
 }
 
 - (void)p_configureView {
@@ -134,7 +149,7 @@
     return YES;
 }
 
-
+#pragma mark -- RecordButtonDelegate
 - (void)didReceiveResult:(NSString *)result {
     _inputTextView.text = result;
     [self p_sendMessage:result];

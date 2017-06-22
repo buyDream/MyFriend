@@ -11,16 +11,22 @@
 
 static CGFloat const kBarButtonItemSize = 30;
 
-@interface RGMessageDetailViewController ()
-//@property (nonatomic, strong) NSString *aUrl;
-//@property (strong, nonatomic) HomeCellModel *model;
-
+@interface RGMessageDetailViewController ()<WKUIDelegate, WKNavigationDelegate>
+@property (nonatomic, strong) NSString *aUrl;
 @property (nonatomic, strong) WKWebView *webView;
 // 进程池
 @property (nonatomic, strong) WKProcessPool *webProcessPool;
 @end
 
 @implementation RGMessageDetailViewController
+
+- (instancetype)initWithUrl:(NSString *)urlString {
+
+    if (self == [super init] ) {
+        self.aUrl = urlString;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,6 +36,11 @@ static CGFloat const kBarButtonItemSize = 30;
     [self.webView loadRequest:request];
 }
 
+#pragma mark -- WKNavigationDelegate
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    self.title = webView.title;
+
+}
 
 #pragma mark -- UI
 - (void)p_setupViews {
@@ -51,12 +62,13 @@ static CGFloat const kBarButtonItemSize = 30;
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:negativeSpacer,btn_left,nil];
     
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque;
-//    self.navigationController.navigationBar.barTintColor = TINTCOLOR;
+    self.navigationController.navigationBar.barTintColor = TINTCOLOR;
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont boldSystemFontOfSize:17],NSFontAttributeName,nil]];
     self.navigationController.navigationBar.translucent = YES;
 }
 
+// 返回
 - (void)p_webViewBack {
     if ([_webView canGoBack]) {
         [self.webView goBack];
@@ -67,6 +79,8 @@ static CGFloat const kBarButtonItemSize = 30;
         }];
     }
 }
+
+#pragma mark -- lazy load
 - (WKProcessPool *)webProcessPool {
     if (!_webProcessPool) {
         WKProcessPool * pool = [[WKProcessPool alloc]init];
