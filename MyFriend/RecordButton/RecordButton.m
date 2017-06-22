@@ -24,6 +24,10 @@ static  NSString *const kXHTouchUpToFinish = @"按住 结束";
     CGFloat _duration;
     BOOL isShow;
     TRRVoiceRecognitionManager *voiceInstance;
+    struct {
+        unsigned int didReceiveResult  :1;
+        unsigned int didFaildWithError :1;
+    } _recordButtonDelegateFlag; // 1. 用于缓存委托对象是否能响应代理方法
 }
 @property(nonatomic, strong) NSString *recordPath;
 //@property(nonatomic, retain) TRecordAudio *voice;
@@ -54,6 +58,14 @@ static  NSString *const kXHTouchUpToFinish = @"按住 结束";
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self setup];
+}
+
+/*
+ 2. 实现缓存
+ */
+- (void)setDelegate:(id<RecordButtonDelegate>)delegate {
+    _delegate = delegate;
+    _recordButtonDelegateFlag.didReceiveResult = [delegate respondsToSelector:@selector(didReceiveResult:)];
 }
 
 - (void)stopRecord
@@ -238,7 +250,7 @@ static  NSString *const kXHTouchUpToFinish = @"按住 结束";
     if (!result || [result isEqualToString:@""]) {
         resultStr = @"未检测到说话";
     }
-    if ([self.delegate respondsToSelector:@selector(didReceiveResult:)]) {
+    if (_recordButtonDelegateFlag.didReceiveResult) { // 3. 直接查询缓存
         [self.delegate didReceiveResult:result];
     }
 }
