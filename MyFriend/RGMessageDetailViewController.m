@@ -9,7 +9,7 @@
 #import "RGMessageDetailViewController.h"
 #import <WebKit/WebKit.h>
 
-static CGFloat const kBarButtonItemSize = 30;
+static const CGFloat  kBarButtonItemSize = 30;
 
 @interface RGMessageDetailViewController ()<WKUIDelegate, WKNavigationDelegate>
 @property (nonatomic, strong) NSString *aUrl;
@@ -32,7 +32,7 @@ static CGFloat const kBarButtonItemSize = 30;
     [super viewDidLoad];
     [self p_setupViews];
     [self p_createNavi];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:self.aUrl]];
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:_aUrl]];
     [self.webView loadRequest:request];
 }
 

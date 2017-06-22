@@ -79,7 +79,7 @@
     self.sythesizer = [[TRRSpeechSythesizer alloc] initWithAPIKey:BaiduAPIKey secretKey:BaiduSecretKey];
     self.apiConfig = [[TRRTuringAPIConfig alloc] initWithAPIKey:TuringAPIKey];
     apiRequest = [[TRRTuringRequestManager alloc]
-                  initWithConfig:self.apiConfig];
+                  initWithConfig:_apiConfig];
     //    TRRVoiceRecognitionManager *sharedInstance=[TRRVoiceRecognitionManager sharedInstance];
     //    [sharedInstance setApiKey:BaiduAPIKey secretKey:BaiduSecretKey];
     //    sharedInstance.delegate = self;
@@ -110,7 +110,7 @@
     if (resultDic[@"text"]) {
         self.outputLabel.text = resultDic[@"text"];
         // add new
-        if (!self.muteButton.selected) [self.sythesizer start:resultDic[@"text"]];
+        if (!_muteButton.selected) [_sythesizer start:resultDic[@"text"]];
     }
     
     // 如果有详细信息，则展示

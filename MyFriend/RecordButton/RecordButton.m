@@ -87,7 +87,7 @@ static  NSString *const kXHTouchUpToFinish = @"按住 结束";
         isShow = YES;
     }
     
-    [self.recordHUDView startRecordingHUDAtView:self.recordHUDSuperView];
+    [_recordHUDView startRecordingHUDAtView:self.recordHUDSuperView];
     NSLog(@"self.recordHUDView startRecordingHUDAtView:self.recordHUDSuperView");
     isSubmit = NO;
     [self setTitle:kXHTouchUpToFinish forState:UIControlStateNormal];
@@ -119,7 +119,7 @@ static  NSString *const kXHTouchUpToFinish = @"按住 结束";
     self.clickCount++;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideACoverNaviButton" object:nil];
     isSubmit = NO;
-    if (self.recordHUDView != nil) {
+    if (_recordHUDView != nil) {
         typeof(self) __weak weakSelf = self;
         [self.recordHUDView cancelRecordCompled:^(BOOL fnished) {
             isShow = NO;
