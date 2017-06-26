@@ -52,9 +52,13 @@
     [sender setTitle:chatState ? @"关闭对话": @"对话" forState:UIControlStateNormal];
     self.inputTextView.text = chatState ? @"请开始你的表演" : @"";
 }
+// 静音按钮
+
 - (IBAction)clickMutebutton:(UIButton *)sender {
     sender.selected = !sender.selected;
+    if (sender.selected) [self.sythesizer stop];
 }
+
 - (IBAction)checkDetailMessage:(UIButton *)sender {
 //    // 进入自定义view
 //    RGMessageDetailViewController *detailVC = [[RGMessageDetailViewController alloc] initWithUrl:_messageText];
@@ -87,11 +91,13 @@
 }
 
 - (void)p_sendMessage:(NSString *)text {
+    WEAKSELF;
     [_apiConfig request_UserIDwithSuccessBlock:^(NSString *userId) {
         NSLog(@"userId: %@", userId);
         [apiRequest request_OpenAPIWithInfo:text successBlock:^(NSDictionary *resultDic) {
             NSLog(@"resultDic: %@", resultDic);
-            [self p_parseResult:resultDic];
+            STRONGSELF;
+            [strongSelf p_parseResult:resultDic];
             //            apiRequest = nil;
             /*令实例变量不再引用apiRequest
              （想多了，只要在TRRTuringRequestManager里实现完成块的事件后，不再保留块即可避免循环引用）
